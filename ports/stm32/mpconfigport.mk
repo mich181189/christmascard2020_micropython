@@ -11,3 +11,6 @@ MICROPY_PY_CC3K ?= 0
 
 # VFS FAT FS support
 MICROPY_VFS_FAT ?= 1
+
+# WS2812 module
+MICROPY_WS2812 ?= 0

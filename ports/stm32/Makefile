@@ -482,6 +482,11 @@ SRC_MOD += $(addprefix $(CC3000_DIR)/src/,\
 	)
 endif
 
+ifeq ($(MICROPY_WS2812),1)
+SRC_C += ws2812/mod_ws2812.c ws2812/ws2812.c
+CFLAGS_MOD += -DMICROPY_ENABLE_WS2812=1
+endif
+
 ifeq ($(MICROPY_SSL_MBEDTLS),1)
 CFLAGS_MOD += -DMBEDTLS_CONFIG_FILE='"mbedtls/mbedtls_config.h"'
 SRC_MOD += mbedtls/mbedtls_port.c

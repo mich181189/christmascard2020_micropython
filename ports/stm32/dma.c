@@ -176,6 +176,23 @@ static const DMA_InitTypeDef dma_init_struct_dcmi = {
 };
 #endif
 
+#if defined(MICROPY_ENABLE_WS2812) && MICROPY_ENABLE_WS2812
+static const DMA_InitTypeDef dma_init_struct_ws2812 = {
+    .Channel = DMA_CHANNEL_5,
+    .Direction = DMA_MEMORY_TO_PERIPH,
+    .PeriphInc = DMA_PINC_DISABLE,
+    .MemInc = DMA_MINC_ENABLE,
+    .PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD,
+    .MemDataAlignment = DMA_MDATAALIGN_HALFWORD,
+    .Mode = DMA_CIRCULAR,
+    .Priority = DMA_PRIORITY_LOW,
+    .FIFOMode = DMA_FIFOMODE_DISABLE,
+    .FIFOThreshold = DMA_FIFO_THRESHOLD_HALFFULL,
+    .MemBurst = DMA_MBURST_SINGLE,
+    .PeriphBurst = DMA_PBURST_SINGLE
+};
+#endif
+
 #if defined(STM32F0)
 
 #define NCONTROLLERS            (2)
@@ -251,12 +268,19 @@ const dma_descr_t dma_DAC_1_TX = { DMA1_Stream5, DMA_CHANNEL_7, dma_id_5,   &dma
 const dma_descr_t dma_DAC_2_TX = { DMA1_Stream6, DMA_CHANNEL_7, dma_id_6,   &dma_init_struct_dac };
 #endif
 const dma_descr_t dma_SPI_3_TX = { DMA1_Stream7, DMA_CHANNEL_0, dma_id_7,   &dma_init_struct_spi_i2c };
+#if defined(MICROPY_ENABLE_WS2812) && MICROPY_ENABLE_WS2812
+// We need DMA1_Stream7 for WS2812 timer control
+const dma_descr_t dma_I2C_1_TX = { DMA1_Stream6, DMA_CHANNEL_1, dma_id_6,   &dma_init_struct_spi_i2c };
+const dma_descr_t dma_WS2812 = { DMA1_Stream7, DMA_CHANNEL_5, dma_id_7, &dma_init_struct_ws2812 };
+#else
 const dma_descr_t dma_I2C_1_TX = { DMA1_Stream7, DMA_CHANNEL_1, dma_id_7,   &dma_init_struct_spi_i2c };
+#endif
 const dma_descr_t dma_I2C_2_TX = { DMA1_Stream7, DMA_CHANNEL_7, dma_id_7,   &dma_init_struct_spi_i2c };
 /* not preferred streams
 const dma_descr_t dma_SPI_3_RX = { DMA1_Stream0, DMA_CHANNEL_0, dma_id_0,   &dma_init_struct_spi_i2c };
 const dma_descr_t dma_I2C_1_TX = { DMA1_Stream6, DMA_CHANNEL_1, dma_id_6,   &dma_init_struct_spi_i2c };
 */
+
 
 // DMA2 streams
 #if defined(STM32F7) && defined(SDMMC2) && ENABLE_SDIO

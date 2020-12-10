@@ -58,6 +58,10 @@ extern const dma_descr_t dma_SPI_6_RX;
 extern const dma_descr_t dma_SDIO_0;
 extern const dma_descr_t dma_DCMI_0;
 
+#if defined(MICROPY_ENABLE_WS2812) && MICROPY_ENABLE_WS2812
+extern const dma_descr_t dma_WS2812;
+#endif
+
 #elif defined(STM32L0)
 
 extern const dma_descr_t dma_SPI_1_RX;
