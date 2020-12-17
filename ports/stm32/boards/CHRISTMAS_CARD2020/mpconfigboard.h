@@ -1,7 +1,7 @@
 // Based on NUCLEO_F401RE
 // Customised for christmas card by removing a bunch of irrelevant stuff
 
-#define MICROPY_HW_BOARD_NAME       "Card from Michael - Christmas 2020"
+#define MICROPY_HW_BOARD_NAME       "Christmas Card from Michael (2020)"
 #define MICROPY_HW_MCU_NAME         "STM32F401RE"
 
 #define MICROPY_HW_HAS_SWITCH       (0)
